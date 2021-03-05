@@ -1,0 +1,154 @@
+buildscript {
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        jcenter()
+        maven { url = "https://files.minecraftforge.net/maven" }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle.forge'
+// 只需要编辑下面的东西即可，上部的代码是 Forge 设置所添加并必须的。
+
+
+// 模组的基本信息，包括版本，包名等
+
+
+version = "1.1-beta"
+group = "com.warmthdawn.justenoughdrags" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "justenoughdrags"
+
+
+def build_number = getBuildNumber()
+version += "." + build_number
+
+sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
+minecraft {
+    version = "${mc_version}-${forge_version}"
+    runDir = "run"
+    mappings = mcp_mappings
+    // 将代码中的所有 @VERSION@ 字段替换为 version 变量
+    replace "@VERSION@", project.version
+}
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+    maven {
+        name = "CoFH Maven"
+        url = "https://maven.covers1624.net"
+    }
+    maven { // CTM
+        url "http://maven.tterrag.com/"
+    }
+    maven {
+        // location of the maven that hosts JEI files
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.k-4u.nl"
+    }
+    maven { url = "https://maven.ellpeck.de/" }
+
+    maven {
+        url 'https://modmaven.dev/'
+    }
+    maven {
+        url "https://www.cursemaven.com"
+    }
+
+}
+
+dependencies {
+
+    deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
+    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:${mc_short}-${crafttweaker_version}"
+    deobfCompile "curse.maven:bloodmagic-${bloodmagic_version_curse}"
+    deobfCompile "de.ellpeck.actuallyadditions:ActuallyAdditions:${mc_version}-${actuallyadditions_version}"
+    deobfCompile "curse.maven:guideapi-${guideapi_version}"
+    deobfCompile "team.chisel.ctm:CTM:MC${mc_version}-${ctm_version}"
+    deobfCompile("appeng:appliedenergistics2:${ae2_version}") {
+        exclude group: "mezz.jei"
+    }
+    deobfCompile("cofh:RedstoneFlux:${mc_short}-${redstoneflux_version}:universal") {
+        exclude group: "mezz.jei"
+    }
+    deobfCompile("cofh:CoFHCore:${mc_version}-${cofhcore_version}:universal") {
+        exclude group: "mezz.jei"
+    }
+    deobfCompile("cofh:ThermalFoundation:${mc_version}-${thermalfoundation_version}:universal") {
+        exclude group: "mezz.jei"
+    }
+    deobfCompile("cofh:ThermalDynamics:${mc_version}-${thermaldynamics_version}:universal") {
+        exclude group: "mezz.jei"
+    }
+    deobfCompile("cofh:CoFHWorld:${mc_version}-${cofhworld_version}:universal") {
+        exclude group: "mezz.jei"
+    }
+    deobfCompile("codechicken:CodeChickenLib:${mc_version}-${ccl_version}:universal") {
+        exclude group: "mezz.jei"
+    }
+//    deobfCompile "com.github.mcjty:xnet:${mc_short}-${xnet_version}"
+    deobfCompile "com.github.mcjty:rftools:${mc_short}-${rftools_version}"
+    deobfCompile "com.github.mcjty:mcjtylib:${mc_short}-${mcjtylib_version}"
+    deobfCompile "curse.maven:randomthings-${randomthings_version}"
+
+
+}
+
+processResources {
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        // replace version and mcversion
+        expand 'version': project.version, 'mcversion': project.minecraft.version
+    }
+
+    // copy everything else except the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+
+runClient {
+    args '--username', 'WarmthDawn'
+    jvmArgs '-Xms4G', '-Xmx4G'
+}
+
+def getBuildNumber() {
+    def versionFile = file('version.properties')
+    if (versionFile.canRead()) {
+        Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionFile))
+        def buildNumber = versionProps['BUILD_NUMBER']
+        def savedVersion = versionProps['SAVED_VERSION']
+        def runTasks = gradle.startParameter.taskNames        //仅在assembleRelease任务是增加版本号
+        if ('build' in runTasks) {
+            versionProps['BUILD_NUMBER'] = (++buildNumber).toString()
+            versionProps.store(versionFile.newWriter(), null)
+        }
+        if (savedVersion != project.version) {
+            versionProps['SAVED_VERSION'] = project.version.toString()
+            versionProps['BUILD_NUMBER'] = (buildNumber = 1).toString()
+            versionProps.store(versionFile.newWriter(), null)
+        }
+        return buildNumber
+    } else {
+        throw new GradleException("Could not find version.properties!")
+    }
+}

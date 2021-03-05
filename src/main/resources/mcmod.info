@@ -1,0 +1,16 @@
+[
+{
+  "modid": "justenoughdrags",
+  "name": "Just Enough Drags",
+  "description": "Enable ghost item drag to many mod's filter",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["WarmthDawn"],
+  "credits": "All the mod makers",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

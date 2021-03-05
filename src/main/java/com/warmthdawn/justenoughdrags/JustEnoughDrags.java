@@ -9,7 +9,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = JustEnoughDrags.MODID, name = JustEnoughDrags.NAME, version = JustEnoughDrags.VERSION)
+@Mod(modid = JustEnoughDrags.MODID, name = JustEnoughDrags.NAME, version = JustEnoughDrags.VERSION
+        , clientSideOnly = true)
 public class JustEnoughDrags {
     public static final String MODID = "justenoughdrags";
     public static final String NAME = "Just Enough Drags";

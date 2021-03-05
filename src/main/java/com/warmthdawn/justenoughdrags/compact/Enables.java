@@ -20,5 +20,6 @@ public class Enables {
         Enables.BLOOD_MAGIC = Loader.isModLoaded("bloodmagic");
         Enables.TRANSLOCATORS = Loader.isModLoaded("translocators");
         Enables.RANDOM_THINGS = Loader.isModLoaded("randomthings");
+        Enables.RFTOOLS = Loader.isModLoaded("rftools");
     }
 }

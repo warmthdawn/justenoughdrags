@@ -11,3 +11,4 @@ actually additions
 bloodmagic2
 translocators
 random things
+rftools

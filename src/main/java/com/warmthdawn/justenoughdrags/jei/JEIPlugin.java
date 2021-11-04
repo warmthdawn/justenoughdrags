@@ -14,11 +14,13 @@ import com.warmthdawn.justenoughdrags.compact.bm2.RoutingNodeGhostHandler;
 import com.warmthdawn.justenoughdrags.compact.mcjty.RFToolsGhostHandler;
 import com.warmthdawn.justenoughdrags.compact.mrouters.MRFilterGhostHandler;
 import com.warmthdawn.justenoughdrags.compact.rthings.RandomThingsGhostHandler;
+import com.warmthdawn.justenoughdrags.compact.xnet.XNetControllerGhostHandler;
 import de.ellpeck.actuallyadditions.mod.inventory.gui.GuiFilter;
 import de.ellpeck.actuallyadditions.mod.inventory.gui.GuiLaserRelayItemWhitelist;
 import de.ellpeck.actuallyadditions.mod.inventory.gui.GuiRangedCollector;
 import mcjty.rftools.blocks.itemfilter.GuiItemFilter;
 import mcjty.rftools.items.storage.GuiStorageFilter;
+import mcjty.xnet.blocks.controller.gui.GuiController;
 import me.desht.modularrouters.client.gui.filter.GuiBulkItemFilter;
 import me.desht.modularrouters.client.gui.filter.GuiModFilter;
 import mezz.jei.api.IModPlugin;
@@ -77,6 +79,9 @@ public class JEIPlugin implements IModPlugin {
             registry.addGhostIngredientHandler(GuiModFilter.class, new MRFilterGhostHandler<>());
         }
 
+        if (Enables.XNET) {
+            registry.addGhostIngredientHandler(GuiController.class, new XNetControllerGhostHandler());
+        }
 
     }
 

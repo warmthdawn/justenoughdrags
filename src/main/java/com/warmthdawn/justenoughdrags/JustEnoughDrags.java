@@ -2,6 +2,7 @@ package com.warmthdawn.justenoughdrags;
 
 import com.warmthdawn.justenoughdrags.compact.Enables;
 import com.warmthdawn.justenoughdrags.compact.bm2.BMReflectionHelper;
+import com.warmthdawn.justenoughdrags.compact.xnet.XNetReflectionHelper;
 import com.warmthdawn.justenoughdrags.network.NetworkHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -22,6 +23,7 @@ public class JustEnoughDrags {
         logger = event.getModLog();
         Enables.init();
         BMReflectionHelper.init();
+        XNetReflectionHelper.init();
     }
 
     @EventHandler

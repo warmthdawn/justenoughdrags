@@ -1,8 +1,8 @@
 buildscript {
     repositories {
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
-        jcenter()
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        mavenCentral()
         maven { url = "https://files.minecraftforge.net/maven" }
     }
     dependencies {
@@ -38,8 +38,8 @@ minecraft {
 }
 
 repositories {
-    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-    maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+    maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+    maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
     maven {
         name = "CoFH Maven"
         url = "https://maven.covers1624.net"
@@ -97,7 +97,7 @@ dependencies {
     deobfCompile("codechicken:CodeChickenLib:${mc_version}-${ccl_version}:universal") {
         exclude group: "mezz.jei"
     }
-//    deobfCompile "com.github.mcjty:xnet:${mc_short}-${xnet_version}"
+    deobfCompile "com.github.mcjty:xnet:${mc_short}-${xnet_version}"
     deobfCompile "com.github.mcjty:rftools:${mc_short}-${rftools_version}"
     deobfCompile "com.github.mcjty:mcjtylib:${mc_short}-${mcjtylib_version}"
     deobfCompile "curse.maven:randomthings-${randomthings_version}"

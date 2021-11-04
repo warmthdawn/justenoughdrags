@@ -12,6 +12,7 @@ public class Enables {
     public static boolean RFTOOLS = false;
     public static boolean TRANSLOCATORS = false;
     public static boolean RANDOM_THINGS = false;
+    public static boolean XNET = false;
 
     public static void init() {
         Enables.CRAFT_TWEAKER = Loader.isModLoaded("crafttweaker");
@@ -23,5 +24,6 @@ public class Enables {
         Enables.RANDOM_THINGS = Loader.isModLoaded("randomthings");
         Enables.RFTOOLS = Loader.isModLoaded("rftools");
         Enables.MODULAR_ROUTERS = Loader.isModLoaded("modularrouters");
+        Enables.XNET = Loader.isModLoaded("xnet");
     }
 }

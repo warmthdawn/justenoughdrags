@@ -12,21 +12,23 @@ import com.warmthdawn.justenoughdrags.compact.actuallyadditions.AAFilterGhostHan
 import com.warmthdawn.justenoughdrags.compact.ae2.*;
 import com.warmthdawn.justenoughdrags.compact.bm2.RoutingNodeGhostHandler;
 import com.warmthdawn.justenoughdrags.compact.mcjty.RFToolsGhostHandler;
+import com.warmthdawn.justenoughdrags.compact.mrouters.MRFilterGhostHandler;
 import com.warmthdawn.justenoughdrags.compact.rthings.RandomThingsGhostHandler;
 import de.ellpeck.actuallyadditions.mod.inventory.gui.GuiFilter;
 import de.ellpeck.actuallyadditions.mod.inventory.gui.GuiLaserRelayItemWhitelist;
 import de.ellpeck.actuallyadditions.mod.inventory.gui.GuiRangedCollector;
-import lumien.randomthings.container.slots.SlotGhost;
 import mcjty.rftools.blocks.itemfilter.GuiItemFilter;
 import mcjty.rftools.items.storage.GuiStorageFilter;
+import me.desht.modularrouters.client.gui.filter.GuiBulkItemFilter;
+import me.desht.modularrouters.client.gui.filter.GuiModFilter;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import mezz.jei.api.gui.IGhostIngredientHandler;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiFurnace;
 
 @mezz.jei.api.JEIPlugin
 public class JEIPlugin implements IModPlugin {
-    @SuppressWarnings("unchecked")
     @Override
     public void register(IModRegistry registry) {
         if (Enables.CRAFT_TWEAKER) {
@@ -61,13 +63,7 @@ public class JEIPlugin implements IModPlugin {
         }
         if (Enables.TRANSLOCATORS) {
 //            registry.addGhostIngredientHandler(GuiTranslocator.class, new GenericGhostHandler<>(SlotDummy.class));
-            try {
-                registry.addGhostIngredientHandler(
-                        (Class<GuiContainer>) Class.forName("codechicken.translocators.client.gui.GuiTranslocator"),
-                        new GenericGhostHandler<>(SlotDummy.class));
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+            registerByName(registry, "codechicken.translocators.client.gui.GuiTranslocator", new GenericGhostHandler<>(SlotDummy.class));
         }
         if (Enables.BLOOD_MAGIC) {
             registry.addGhostIngredientHandler(GuiItemRoutingNode.class, new RoutingNodeGhostHandler());
@@ -76,7 +72,25 @@ public class JEIPlugin implements IModPlugin {
             registry.addGhostIngredientHandler(lumien.randomthings.client.gui.GuiItemFilter.class, new RandomThingsGhostHandler());
         }
 
+        if (Enables.MODULAR_ROUTERS) {
+            registry.addGhostIngredientHandler(GuiBulkItemFilter.class, new MRFilterGhostHandler<>());
+            registry.addGhostIngredientHandler(GuiModFilter.class, new MRFilterGhostHandler<>());
+        }
+
 
     }
+
+
+    @SuppressWarnings("unchecked")
+    private <T extends GuiScreen> void registerByName(IModRegistry registry, String className, IGhostIngredientHandler<T> handler) {
+        try {
+            registry.addGhostIngredientHandler(
+                (Class<T>) Class.forName(className),
+                handler);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

@@ -16,7 +16,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 // 模组的基本信息，包括版本，包名等
 
 
-version = "1.1.1-beta-hotfix"
+version = "1.1-beta"
 group = "com.warmthdawn.justenoughdrags" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "justenoughdrags"
 
@@ -76,9 +76,9 @@ dependencies {
     deobfCompile "de.ellpeck.actuallyadditions:ActuallyAdditions:${mc_version}-${actuallyadditions_version}"
     deobfCompile "curse.maven:guideapi-${guideapi_version}"
     deobfCompile "team.chisel.ctm:CTM:MC${mc_version}-${ctm_version}"
-    deobfCompile("appeng:appliedenergistics2:${ae2_version}") {
-        exclude group: "mezz.jei"
-    }
+//    deobfCompile("appeng:appliedenergistics2:${ae2_version}") {
+//        exclude group: "mezz.jei"
+//    }
     deobfCompile("cofh:RedstoneFlux:${mc_short}-${redstoneflux_version}:universal") {
         exclude group: "mezz.jei"
     }
@@ -101,6 +101,10 @@ dependencies {
     deobfCompile "com.github.mcjty:rftools:${mc_short}-${rftools_version}"
     deobfCompile "com.github.mcjty:mcjtylib:${mc_short}-${mcjtylib_version}"
     deobfCompile "curse.maven:randomthings-${randomthings_version}"
+    deobfCompile "curse.maven:modularrouters-${modularrouters_version}"
+    deobfCompile("curse.maven:appliedenergistics2-${ae2_version_curse}") {
+        exclude group: "mezz.jei"
+    }
 
 
 }
@@ -149,6 +153,6 @@ def getBuildNumber() {
         }
         return buildNumber
     } else {
-        throw new GradleException("Could not find version.properties!")
+        throw new FileNotFoundException("Could not find version.properties!")
     }
 }

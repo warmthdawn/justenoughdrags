@@ -3,6 +3,7 @@ package com.warmthdawn.justenoughdrags.compact;
 import net.minecraftforge.fml.common.Loader;
 
 public class Enables {
+    public static boolean MODULAR_ROUTERS = false;
     public static boolean ACTUALLY_ADDITIONS = false;
     public static boolean APPLIED_ENERGISTICS = false;
     public static boolean THERMAL_DYNAMICS = false;
@@ -21,5 +22,6 @@ public class Enables {
         Enables.TRANSLOCATORS = Loader.isModLoaded("translocators");
         Enables.RANDOM_THINGS = Loader.isModLoaded("randomthings");
         Enables.RFTOOLS = Loader.isModLoaded("rftools");
+        Enables.MODULAR_ROUTERS = Loader.isModLoaded("modularrouters");
     }
 }

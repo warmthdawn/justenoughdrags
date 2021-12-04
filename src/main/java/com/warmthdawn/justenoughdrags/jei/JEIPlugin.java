@@ -13,6 +13,7 @@ import com.warmthdawn.justenoughdrags.compact.ae2.*;
 import com.warmthdawn.justenoughdrags.compact.bm2.RoutingNodeGhostHandler;
 import com.warmthdawn.justenoughdrags.compact.mcjty.RFToolsGhostHandler;
 import com.warmthdawn.justenoughdrags.compact.mrouters.MRFilterGhostHandler;
+import com.warmthdawn.justenoughdrags.compact.rs.RSGhostHandler;
 import com.warmthdawn.justenoughdrags.compact.rthings.RandomThingsGhostHandler;
 import com.warmthdawn.justenoughdrags.compact.xnet.XNetControllerGhostHandler;
 import de.ellpeck.actuallyadditions.mod.inventory.gui.GuiFilter;
@@ -81,6 +82,10 @@ public class JEIPlugin implements IModPlugin {
 
         if (Enables.XNET) {
             registry.addGhostIngredientHandler(GuiController.class, new XNetControllerGhostHandler());
+        }
+
+        if(Enables.REFINED_STORAGE) {
+            registry.addGhostIngredientHandler(com.raoulvdberge.refinedstorage.gui.GuiBase.class, new RSGhostHandler());
         }
 
     }

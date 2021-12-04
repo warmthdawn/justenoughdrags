@@ -3,6 +3,7 @@ package com.warmthdawn.justenoughdrags.compact;
 import net.minecraftforge.fml.common.Loader;
 
 public class Enables {
+    public static boolean REFINED_STORAGE = false;
     public static boolean MODULAR_ROUTERS = false;
     public static boolean ACTUALLY_ADDITIONS = false;
     public static boolean APPLIED_ENERGISTICS = false;
@@ -25,5 +26,6 @@ public class Enables {
         Enables.RFTOOLS = Loader.isModLoaded("rftools");
         Enables.MODULAR_ROUTERS = Loader.isModLoaded("modularrouters");
         Enables.XNET = Loader.isModLoaded("xnet");
+        Enables.REFINED_STORAGE = Loader.isModLoaded("refinedstorage");
     }
 }

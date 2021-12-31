@@ -7,6 +7,7 @@ import codechicken.lib.inventory.container.SlotDummy;
 import cofh.thermaldynamics.gui.client.GuiDuctConnection;
 import com.blamejared.ctgui.api.SlotRecipe;
 import com.blamejared.ctgui.client.gui.craftingtable.GuiCraftingTable;
+import com.warmthdawn.justenoughdrags.JustEnoughDrags;
 import com.warmthdawn.justenoughdrags.compact.Enables;
 import com.warmthdawn.justenoughdrags.compact.actuallyadditions.AAFilterGhostHandler;
 import com.warmthdawn.justenoughdrags.compact.ae2.*;
@@ -84,7 +85,7 @@ public class JEIPlugin implements IModPlugin {
             registry.addGhostIngredientHandler(GuiController.class, new XNetControllerGhostHandler());
         }
 
-        if(Enables.REFINED_STORAGE) {
+        if (Enables.REFINED_STORAGE) {
             registry.addGhostIngredientHandler(com.raoulvdberge.refinedstorage.gui.GuiBase.class, new RSGhostHandler());
         }
 

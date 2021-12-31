@@ -1,5 +1,6 @@
 package com.warmthdawn.justenoughdrags.jei;
 
+import com.warmthdawn.justenoughdrags.JustEnoughDrags;
 import com.warmthdawn.justenoughdrags.network.NetworkHandler;
 import com.warmthdawn.justenoughdrags.network.PacketSetContainerSlot;
 import mezz.jei.api.gui.IGhostIngredientHandler;
@@ -10,6 +11,7 @@ import net.minecraft.item.ItemStack;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -25,6 +27,9 @@ public class GenericGhostHandler<T extends GuiContainer> implements IGhostIngred
 
     @Override
     public <I> List<Target<I>> getTargets(T gui, I ingredient, boolean doStart) {
+        if(!JustEnoughDrags.INSTANCE.isServerInstalled()) {
+            return Collections.emptyList();
+        }
         List<Target<I>> targets = new ArrayList<>();
         if (ingredient instanceof ItemStack) {
             ItemStack stack = ((ItemStack) ingredient).copy();
